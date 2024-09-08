@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
 
     // Считываем список заметок и добавляем его в интерфейс
-    QString noteListFileName = "list.txt";
+    QString noteListFileName = "list.ntbk";
 
     if (!QFile::exists(noteListFileName)) 
         return;
@@ -42,13 +42,13 @@ void MainWindow::on_addNoteButton_clicked()
     
     ui->noteList->addItem(newNoteListItem);
     ui->noteList->editItem(newNoteListItem);
-    }
-        
+}
+
 
 void MainWindow::on_deleteNoteButton_clicked()
 {
-    // Удаляем соответствующие заметке элемент списка и файл, затем сохраняем списко в файле
-    if (!QFile::exists("list.txt"))
+    // Удаляем соответствующий заметке элемент списка и файл, затем сохраняем список в файле
+    if (!QFile::exists("list.ntbk"))
         return;
 
     QString selectedNoteLabelText = "Selected note:";
@@ -83,7 +83,7 @@ void MainWindow::on_deleteNoteButton_clicked()
 void MainWindow::on_saveNoteButton_clicked()
 {
     // Сохраняем текст заметки в соответствующий файл
-    if (!QFile::exists("list.txt"))
+    if (!QFile::exists("list.ntbk"))
         return;
 
     QString saveNoteFileName = ui->selectedNoteLabel->text().trimmed() + ".txt";
@@ -154,7 +154,7 @@ void MainWindow::on_noteList_itemDoubleClicked(QListWidgetItem *doubleClickedNot
 
 bool MainWindow::saveNoteList() 
 {
-    QFile noteListFile("list.txt");
+    QFile noteListFile("list.ntbk");
 
     if (!noteListFile.open(QIODevice::WriteOnly | QIODevice::Text))
         return false;
