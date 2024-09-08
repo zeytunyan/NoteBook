@@ -20,7 +20,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_toolButton_clicked();
+    void on_addNoteButton_clicked();
 
     void on_listWidget_itemChanged(QListWidgetItem *item);
 

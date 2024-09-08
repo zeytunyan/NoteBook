@@ -26,7 +26,7 @@
    <string>NoteBook</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QToolButton" name="toolButton">
+   <widget class="QToolButton" name="addNoteButton">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -150,7 +150,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit">
+   <widget class="QTextEdit" name="noteTextEdit">
     <property name="geometry">
      <rect>
       <x>210</x>
@@ -180,7 +180,7 @@
      <string>Save</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="noteListLabel">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -200,7 +200,7 @@
      <string>Notes:</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="selectedNoteLabel">
     <property name="geometry">
      <rect>
       <x>220</x>

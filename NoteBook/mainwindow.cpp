@@ -28,10 +28,10 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_toolButton_clicked()
+void MainWindow::on_addNoteButton_clicked()
 {
-    ui->textEdit->clear();
-    ui->label_2->setText("Selected note:");
+    ui->noteTextEdit->clear();
+    ui->selectedNoteLabel->setText("Selected note:");
     
     auto *item = new QListWidgetItem();
     item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsSelectable);
@@ -57,7 +57,7 @@ void MainWindow::on_toolButton_clicked()
 
 void MainWindow::on_listWidget_itemChanged(QListWidgetItem *item)
 {
-    QString oldName = ui->label_2->text().trimmed() + ".txt";
+    QString oldName = ui->selectedNoteLabel->text().trimmed() + ".txt";
     
     if (oldName != "Selected note:.txt" && QFile::exists(oldName))
     {
@@ -79,15 +79,15 @@ void MainWindow::on_listWidget_itemChanged(QListWidgetItem *item)
         fileO.close();
     }
     
-    ui->label_2->setText(item->text());
+    ui->selectedNoteLabel->setText(item->text());
 }
 
 void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
 {
-    ui->label_2->setText(item->text());
-    ui->textEdit->clear();
+    ui->selectedNoteLabel->setText(item->text());
+    ui->noteTextEdit->clear();
     
-    QString string = ui->label_2->text().trimmed() + ".txt";
+    QString string = ui->selectedNoteLabel->text().trimmed() + ".txt";
     
     if (QFile::exists(string))
     {
@@ -96,7 +96,7 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
         if (!file.open(QIODevice::ReadOnly))
             return;
         
-        ui->textEdit->setPlainText(QString::fromUtf8(file.readAll()));
+        ui->noteTextEdit->setPlainText(QString::fromUtf8(file.readAll()));
         
         file.close();
     }
@@ -107,7 +107,7 @@ void MainWindow::on_toolButton_3_clicked()
     if (!QFile::exists("list"))
         return;
     
-    QString nameInWgt = ui->label_2->text().trimmed() + ".txt";
+    QString nameInWgt = ui->selectedNoteLabel->text().trimmed() + ".txt";
     
     if (nameInWgt == "Selected note:.txt")
         return;
@@ -118,7 +118,7 @@ void MainWindow::on_toolButton_3_clicked()
         return;
     
     QTextStream out(&fileOut);
-    out << ui->textEdit->toPlainText();
+    out << ui->noteTextEdit->toPlainText();
     
     fileOut.close();
 }
@@ -128,7 +128,7 @@ void MainWindow::on_toolButton_2_clicked()
     if (!QFile::exists("list"))
         return;
     
-    QString nameInLbl = ui->label_2->text().trimmed();
+    QString nameInLbl = ui->selectedNoteLabel->text().trimmed();
     
     if (nameInLbl == "Selected note:")
         return;
@@ -138,8 +138,8 @@ void MainWindow::on_toolButton_2_clicked()
         QFile(nameInLbl + ".txt").remove();
     }
 
-    ui->textEdit->clear();
-    ui->label_2->setText("Selected note:");
+    ui->noteTextEdit->clear();
+    ui->selectedNoteLabel->setText("Selected note:");
 
     for (int i = 0; i < ui->listWidget->count(); i++)
     {
@@ -167,10 +167,10 @@ void MainWindow::on_toolButton_2_clicked()
 
 void MainWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
 {
-    ui->label_2->setText(item->text());
-    ui->textEdit->clear();
+    ui->selectedNoteLabel->setText(item->text());
+    ui->noteTextEdit->clear();
     
-    QString string = ui->label_2->text().trimmed() + ".txt";
+    QString string = ui->selectedNoteLabel->text().trimmed() + ".txt";
     
     if (QFile::exists(string))
     {
@@ -179,7 +179,7 @@ void MainWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
         if (!file.open(QIODevice::ReadOnly))
             return;
         
-        ui->textEdit->setPlainText(QString::fromUtf8(file.readAll()));
+        ui->noteTextEdit->setPlainText(QString::fromUtf8(file.readAll()));
         
         file.close();
     }
