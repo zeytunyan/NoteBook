@@ -1,11 +1,11 @@
-#include "mainwindow.h"
+ï»¿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
-    // Ñ÷èòûâàåì ñïèñîê çàìåòîê è äîáàâëÿåì åãî â èíòåðôåéñ
+    // Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ ÑÐ¿Ð¸ÑÐ¾Ðº Ð·Ð°Ð¼ÐµÑ‚Ð¾Ðº Ð¸ Ð´Ð¾Ð±Ð°Ð²Ð»ÑÐµÐ¼ ÐµÐ³Ð¾ Ð² Ð¸Ð½Ñ‚ÐµÑ€Ñ„ÐµÐ¹Ñ
     QString noteListFileName = "list.txt";
 
     if (!QFile::exists(noteListFileName)) 
@@ -32,7 +32,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_addNoteButton_clicked()
 {
-    // Äîáàâëÿåì íîâûé ïóíêò-çàìåòêó â ñïèñîê è ñîõðàíÿåì ñïèñîê â ôàéëå
+    // Ð”Ð¾Ð±Ð°Ð²Ð»ÑÐµÐ¼ Ð½Ð¾Ð²Ñ‹Ð¹ Ð¿ÑƒÐ½ÐºÑ‚-Ð·Ð°Ð¼ÐµÑ‚ÐºÑƒ Ð² ÑÐ¿Ð¸ÑÐ¾Ðº Ð¸ ÑÐ¾Ñ…Ñ€Ð°Ð½ÑÐµÐ¼ ÑÐ¿Ð¸ÑÐ¾Ðº Ð² Ñ„Ð°Ð¹Ð»Ðµ
     ui->noteTextEdit->clear();
     ui->selectedNoteLabel->setText("Selected note:");
     
@@ -62,7 +62,7 @@ void MainWindow::on_addNoteButton_clicked()
 
 void MainWindow::on_deleteNoteButton_clicked()
 {
-    // Óäàëÿåì ñîîòâåòñòâóþùèå çàìåòêå ýëåìåíò ñïèñêà è ôàéë, çàòåì ñîõðàíÿåì ñïèñêî â ôàéëå
+    // Ð£Ð´Ð°Ð»ÑÐµÐ¼ ÑÐ¾Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÑƒÑŽÑ‰Ð¸Ðµ Ð·Ð°Ð¼ÐµÑ‚ÐºÐµ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚ ÑÐ¿Ð¸ÑÐºÐ° Ð¸ Ñ„Ð°Ð¹Ð», Ð·Ð°Ñ‚ÐµÐ¼ ÑÐ¾Ñ…Ñ€Ð°Ð½ÑÐµÐ¼ ÑÐ¿Ð¸ÑÐºÐ¾ Ð² Ñ„Ð°Ð¹Ð»Ðµ
     if (!QFile::exists("list.txt"))
         return;
 
@@ -111,7 +111,7 @@ void MainWindow::on_deleteNoteButton_clicked()
 
 void MainWindow::on_saveNoteButton_clicked()
 {
-    // Ñîõðàíÿåì òåêñò çàìåòêè â ñîîòâåòñòâóþùèé ôàéë
+    // Ð¡Ð¾Ñ…Ñ€Ð°Ð½ÑÐµÐ¼ Ñ‚ÐµÐºÑÑ‚ Ð·Ð°Ð¼ÐµÑ‚ÐºÐ¸ Ð² ÑÐ¾Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÑƒÑŽÑ‰Ð¸Ð¹ Ñ„Ð°Ð¹Ð»
     if (!QFile::exists("list.txt"))
         return;
 
@@ -135,7 +135,7 @@ void MainWindow::on_saveNoteButton_clicked()
 
 void MainWindow::on_noteList_itemChanged(QListWidgetItem *changedNoteListItem)
 {
-    // Ìåíÿåì íàçâàíèå ôàéëà çàìåòêè è ñîîòâåòñòâóþùåãî ïóíêòà â ñïèñêå, çàòåì ñîõðàíÿåì ñïèñîê â ôàéëå
+    // ÐœÐµÐ½ÑÐµÐ¼ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° Ð·Ð°Ð¼ÐµÑ‚ÐºÐ¸ Ð¸ ÑÐ¾Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÑƒÑŽÑ‰ÐµÐ³Ð¾ Ð¿ÑƒÐ½ÐºÑ‚Ð° Ð² ÑÐ¿Ð¸ÑÐºÐµ, Ð·Ð°Ñ‚ÐµÐ¼ ÑÐ¾Ñ…Ñ€Ð°Ð½ÑÐµÐ¼ ÑÐ¿Ð¸ÑÐ¾Ðº Ð² Ñ„Ð°Ð¹Ð»Ðµ
     QString oldNoteFileName = ui->selectedNoteLabel->text().trimmed() + ".txt";
     
     if (oldNoteFileName != "Selected note:.txt" && QFile::exists(oldNoteFileName))
@@ -165,7 +165,7 @@ void MainWindow::on_noteList_itemChanged(QListWidgetItem *changedNoteListItem)
 
 void MainWindow::on_noteList_itemClicked(QListWidgetItem *clickedNoteListItem)
 {
-    // Ñ÷èòûâàåì ñîäåðæèìîå ôàéëà çàìåòêè è ïîìåùàåì ýòîò òåêñò â òåêñòîâîå ïîëå
+    // Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ðµ Ñ„Ð°Ð¹Ð»Ð° Ð·Ð°Ð¼ÐµÑ‚ÐºÐ¸ Ð¸ Ð¿Ð¾Ð¼ÐµÑ‰Ð°ÐµÐ¼ ÑÑ‚Ð¾Ñ‚ Ñ‚ÐµÐºÑÑ‚ Ð² Ñ‚ÐµÐºÑÑ‚Ð¾Ð²Ð¾Ðµ Ð¿Ð¾Ð»Ðµ
     ui->selectedNoteLabel->setText(clickedNoteListItem->text());
     ui->noteTextEdit->clear();
     
@@ -187,7 +187,7 @@ void MainWindow::on_noteList_itemClicked(QListWidgetItem *clickedNoteListItem)
 
 void MainWindow::on_noteList_itemDoubleClicked(QListWidgetItem *doubleClickedNoteListItem)
 {
-    // Äåëàåì òî æå, ÷òî è ïðè îáû÷íîì êëèêå, íî ïðè ýòîì åù¸ è ðåäàêòèðóåì ïóíêò-çàìåòêó â ñïèñêå
+    // Ð”ÐµÐ»Ð°ÐµÐ¼ Ñ‚Ð¾ Ð¶Ðµ, Ñ‡Ñ‚Ð¾ Ð¸ Ð¿Ñ€Ð¸ Ð¾Ð±Ñ‹Ñ‡Ð½Ð¾Ð¼ ÐºÐ»Ð¸ÐºÐµ, Ð½Ð¾ Ð¿Ñ€Ð¸ ÑÑ‚Ð¾Ð¼ ÐµÑ‰Ñ‘ Ð¸ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€ÑƒÐµÐ¼ Ð¿ÑƒÐ½ÐºÑ‚-Ð·Ð°Ð¼ÐµÑ‚ÐºÑƒ Ð² ÑÐ¿Ð¸ÑÐºÐµ
     on_noteList_itemClicked(doubleClickedNoteListItem);
 
     doubleClickedNoteListItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsSelectable);
