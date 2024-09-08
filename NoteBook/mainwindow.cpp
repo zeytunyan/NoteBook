@@ -5,19 +5,22 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 {
     ui->setupUi(this);
 
-    if (QFile::exists("Notes._txt"))
-    {
-        QFile groups("Notes._txt");
+    QString listFileName = "list";
+
+    if (!QFile::exists(listFileName)) 
+        return;
+    
+    QFile listFile(listFileName);
         
-        if (!groups.open(QIODevice::ReadOnly))
-            return;
+    if (!listFile.open(QIODevice::ReadOnly))
+        return;
         
-        QString line = groups.readAll();
-        groups.close();
-        ui->listWidget->addItems(line.split("\n"));
-       
-        delete ui->listWidget->item(ui->listWidget->count() - 1);
-    }
+    QString list = listFile.readAll();
+    
+    listFile.close();
+    
+    ui->listWidget->addItems(list.split("\n"));   
+    delete ui->listWidget->item(ui->listWidget->count() - 1);
 }
 
 MainWindow::~MainWindow()
@@ -30,13 +33,13 @@ void MainWindow::on_toolButton_clicked()
     ui->textEdit->clear();
     ui->label_2->setText("Selected note:");
     
-    QListWidgetItem *item = new QListWidgetItem();
+    auto *item = new QListWidgetItem();
     item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsSelectable);
     
     ui->listWidget->addItem(item);
     ui->listWidget->editItem(item);
 
-    QFile fileO("Notes._txt");
+    QFile fileO("list");
     
     if (fileO.open(QIODevice::WriteOnly | QIODevice::Text))
     {
@@ -44,7 +47,7 @@ void MainWindow::on_toolButton_clicked()
         
         for (int i = 0; i < ui->listWidget->count(); i++)
         {
-            QListWidgetItem *itm = ui->listWidget->item(i);
+            QListWidgetItem const *itm = ui->listWidget->item(i);
             writeStream << itm->text() << "\n";
         }
         
@@ -61,7 +64,7 @@ void MainWindow::on_listWidget_itemChanged(QListWidgetItem *item)
         QFile::rename(oldName, item->text().trimmed() + ".txt");  
     }
 
-    QFile fileO("Notes._txt");
+    QFile fileO("list");
     
     if (fileO.open(QIODevice::WriteOnly | QIODevice::Text))
     {
@@ -69,7 +72,7 @@ void MainWindow::on_listWidget_itemChanged(QListWidgetItem *item)
         
         for (int i = 0; i < ui->listWidget->count(); i++)
         {
-            QListWidgetItem *itm = ui->listWidget->item(i);
+            QListWidgetItem const *itm = ui->listWidget->item(i);
             writeStream << itm->text() << "\n";
         }
         
@@ -101,7 +104,7 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
 
 void MainWindow::on_toolButton_3_clicked()
 {
-    if (!QFile::exists("Notes._txt"))
+    if (!QFile::exists("list"))
         return;
     
     QString nameInWgt = ui->label_2->text().trimmed() + ".txt";
@@ -122,7 +125,7 @@ void MainWindow::on_toolButton_3_clicked()
 
 void MainWindow::on_toolButton_2_clicked()
 {
-    if (!QFile::exists("Notes._txt"))
+    if (!QFile::exists("list"))
         return;
     
     QString nameInLbl = ui->label_2->text().trimmed();
@@ -146,7 +149,7 @@ void MainWindow::on_toolButton_2_clicked()
             delete itm;
     }
 
-    QFile fileO("Notes._txt");
+    QFile fileO("list");
     
     if (fileO.open(QIODevice::WriteOnly | QIODevice::Text))
     {
