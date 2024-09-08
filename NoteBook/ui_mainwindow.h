@@ -26,7 +26,7 @@ public:
     QWidget *centralWidget;
     QToolButton *addNoteButton;
     QToolButton *toolButton_2;
-    QListWidget *listWidget;
+    QListWidget *noteList;
     QTextEdit *noteTextEdit;
     QToolButton *toolButton_3;
     QLabel *noteListLabel;
@@ -69,9 +69,9 @@ public:
         palette1.setBrush(QPalette::Disabled, QPalette::ButtonText, brush1);
         toolButton_2->setPalette(palette1);
         toolButton_2->setFont(font);
-        listWidget = new QListWidget(centralWidget);
-        listWidget->setObjectName(QString::fromUtf8("listWidget"));
-        listWidget->setGeometry(QRect(10, 50, 191, 311));
+        noteList = new QListWidget(centralWidget);
+        noteList->setObjectName(QString::fromUtf8("noteList"));
+        noteList->setGeometry(QRect(10, 50, 191, 311));
         noteTextEdit = new QTextEdit(centralWidget);
         noteTextEdit->setObjectName(QString::fromUtf8("noteTextEdit"));
         noteTextEdit->setGeometry(QRect(210, 50, 271, 311));
