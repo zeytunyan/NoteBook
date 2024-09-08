@@ -5,21 +5,22 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 {
     ui->setupUi(this);
 
-    QString listFileName = "list.txt";
+    // Считываем список заметок и добавляем его в интерфейс
+    QString noteListFileName = "list.txt";
 
-    if (!QFile::exists(listFileName)) 
+    if (!QFile::exists(noteListFileName)) 
         return;
     
-    QFile listFile(listFileName);
+    QFile noteListFile(noteListFileName);
         
-    if (!listFile.open(QIODevice::ReadOnly))
+    if (!noteListFile.open(QIODevice::ReadOnly))
         return;
         
-    QString list = listFile.readAll();
+    QString noteListString = noteListFile.readAll();
     
-    listFile.close();
+    noteListFile.close();
     
-    ui->noteList->addItems(list.split("\n"));   
+    ui->noteList->addItems(noteListString.split("\n"));   
     delete ui->noteList->item(ui->noteList->count() - 1);
 }
 
@@ -31,6 +32,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_addNoteButton_clicked()
 {
+    // Добавляем новый пункт-заметку в список и сохраняем список в файле
     ui->noteTextEdit->clear();
     ui->selectedNoteLabel->setText("Selected note:");
     
@@ -122,6 +124,7 @@ void MainWindow::on_toolButton_3_clicked()
 
 void MainWindow::on_noteList_itemChanged(QListWidgetItem *changedNoteListItem)
 {
+    // Меняем название файла заметки и соответствующего пункта в списке, затем сохраняем список в файле
     QString oldNoteName = ui->selectedNoteLabel->text().trimmed() + ".txt";
     
     if (oldNoteName != "Selected note:.txt" && QFile::exists(oldNoteName))
@@ -148,47 +151,33 @@ void MainWindow::on_noteList_itemChanged(QListWidgetItem *changedNoteListItem)
 }
 
 
-
-
-void MainWindow::on_noteList_itemClicked(QListWidgetItem *item)
+void MainWindow::on_noteList_itemClicked(QListWidgetItem *clickedNoteListItem)
 {
-    ui->selectedNoteLabel->setText(item->text());
+    // Считываем содержимое файла заметки и помещаем этот текст в текстовое поле
+    ui->selectedNoteLabel->setText(clickedNoteListItem->text());
     ui->noteTextEdit->clear();
     
-    QString string = ui->selectedNoteLabel->text().trimmed() + ".txt";
+    QString selectedNoteFileName = ui->selectedNoteLabel->text().trimmed() + ".txt";
     
-    if (QFile::exists(string))
-    {
-        QFile file(string);
+    if (!QFile::exists(selectedNoteFileName))
+        return;
+    
+    QFile noteFile(selectedNoteFileName);
         
-        if (!file.open(QIODevice::ReadOnly))
-            return;
+    if (!noteFile.open(QIODevice::ReadOnly))
+        return;
         
-        ui->noteTextEdit->setPlainText(QString::fromUtf8(file.readAll()));
+    ui->noteTextEdit->setPlainText(QString::fromUtf8(noteFile.readAll()));
         
-        file.close();
-    }
+    noteFile.close();
 }
 
-void MainWindow::on_noteList_itemDoubleClicked(QListWidgetItem* item)
+
+void MainWindow::on_noteList_itemDoubleClicked(QListWidgetItem *doubleClickedNoteListItem)
 {
-    ui->selectedNoteLabel->setText(item->text());
-    ui->noteTextEdit->clear();
+    // Делаем то же, что и при обычном клике, но при этом ещё и редактируем пункт-заметку в списке
+    on_noteList_itemClicked(doubleClickedNoteListItem);
 
-    QString string = ui->selectedNoteLabel->text().trimmed() + ".txt";
-
-    if (QFile::exists(string))
-    {
-        QFile file(string);
-
-        if (!file.open(QIODevice::ReadOnly))
-            return;
-
-        ui->noteTextEdit->setPlainText(QString::fromUtf8(file.readAll()));
-
-        file.close();
-    }
-
-    item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsSelectable);
-    ui->noteList->editItem(item);
+    doubleClickedNoteListItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsSelectable);
+    ui->noteList->editItem(doubleClickedNoteListItem);
 }

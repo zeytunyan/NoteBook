@@ -24,13 +24,13 @@ private slots:
 
     void on_noteList_itemChanged(QListWidgetItem *changedNoteListItem);
 
-    void on_noteList_itemClicked(QListWidgetItem *item);
+    void on_noteList_itemClicked(QListWidgetItem *clickedNoteListItem);
 
     void on_toolButton_3_clicked();
 
     void on_toolButton_2_clicked();
 
-    void on_noteList_itemDoubleClicked(QListWidgetItem *item);
+    void on_noteList_itemDoubleClicked(QListWidgetItem *doubleClickedNoteListItem);
 
 private:
     Ui::MainWindow *ui;
