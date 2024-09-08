@@ -32,7 +32,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_addNoteButton_clicked()
 {
-    // Добавляем новый пункт-заметку в список и сохраняем список в файле
+    // Добавляем новый пункт-заметку в список и сразу активируем её редактирование
     ui->noteTextEdit->clear();
     ui->selectedNoteLabel->setText("Selected note:");
     
@@ -41,24 +41,8 @@ void MainWindow::on_addNoteButton_clicked()
     
     ui->noteList->addItem(newNoteListItem);
     ui->noteList->editItem(newNoteListItem);
-
-
-    QFile noteListFile("list.txt");
-    
-    if (!noteListFile.open(QIODevice::WriteOnly | QIODevice::Text))
-        return;
-
-    QTextStream noteListFileWriteStream(&noteListFile);
-        
-    for (int i = 0; i < ui->noteList->count(); i++)
-    {
-        QListWidgetItem const *noteListItem = ui->noteList->item(i);
-        noteListFileWriteStream << noteListItem->text() << "\n";
     }
         
-    noteListFile.close();
-}
-
 
 void MainWindow::on_deleteNoteButton_clicked()
 {
@@ -91,21 +75,7 @@ void MainWindow::on_deleteNoteButton_clicked()
         QFile(deleteNoteFileName).remove();
     }
 
-
-    QFile noteListFile("list.txt");
-
-    if (!noteListFile.open(QIODevice::WriteOnly | QIODevice::Text))
-        return;
-    
-    QTextStream noteListFileWriteStream(&noteListFile);
-
-    for (int i = 0; i < ui->noteList->count(); i++)
-    {
-        QListWidgetItem const* noteListItem = ui->noteList->item(i);
-        noteListFileWriteStream << noteListItem->text() << "\n";
-    }
-
-    noteListFile.close();
+    saveNoteList();
 }
 
 
