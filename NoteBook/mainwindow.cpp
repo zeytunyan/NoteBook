@@ -20,7 +20,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     
     noteListFile.close();
     
-    ui->noteList->addItems(noteListString.split("\r\n"));   
+    QStringList noteListNames = noteListString.split("\r\n");
+    ui->noteList->addItems(noteListNames);
     delete ui->noteList->item(ui->noteList->count() - 1);
 }
 
@@ -163,7 +164,7 @@ bool MainWindow::saveNoteList()
     for (int i = 0; i < ui->noteList->count(); i++)
     {
         QListWidgetItem const* noteListItem = ui->noteList->item(i);
-        noteListFileWriteStream << noteListItem->text() << "\n";
+        noteListFileWriteStream << noteListItem->text().trimmed() << "\n";
     }
 
     noteListFile.close();
