@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     
     noteListFile.close();
     
-    ui->noteList->addItems(noteListString.split("\n"));   
+    ui->noteList->addItems(noteListString.split("\r\n"));   
     delete ui->noteList->item(ui->noteList->count() - 1);
 }
 
@@ -145,21 +145,7 @@ void MainWindow::on_noteList_itemChanged(QListWidgetItem *changedNoteListItem)
 
     ui->selectedNoteLabel->setText(changedNoteListItem->text());
 
-        
-    QFile noteListFile("list.txt");
-    
-    if (!noteListFile.open(QIODevice::WriteOnly | QIODevice::Text))
-        return;
-    
-    QTextStream noteListFileWriteStream(&noteListFile);
-        
-    for (int i = 0; i < ui->noteList->count(); i++)
-    {
-        QListWidgetItem const *noteListItem = ui->noteList->item(i);
-        noteListFileWriteStream << noteListItem->text() << "\n";
-    }
-        
-    noteListFile.close();
+    saveNoteList();
 }
 
 
@@ -192,4 +178,23 @@ void MainWindow::on_noteList_itemDoubleClicked(QListWidgetItem *doubleClickedNot
 
     doubleClickedNoteListItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsSelectable);
     ui->noteList->editItem(doubleClickedNoteListItem);
+}
+
+
+bool MainWindow::saveNoteList() 
+{
+    QFile noteListFile("list.txt");
+
+    if (!noteListFile.open(QIODevice::WriteOnly | QIODevice::Text))
+        return false;
+
+    QTextStream noteListFileWriteStream(&noteListFile);
+
+    for (int i = 0; i < ui->noteList->count(); i++)
+    {
+        QListWidgetItem const* noteListItem = ui->noteList->item(i);
+        noteListFileWriteStream << noteListItem->text() << "\n";
+    }
+
+    noteListFile.close();
 }

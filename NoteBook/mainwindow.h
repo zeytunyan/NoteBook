@@ -32,6 +32,9 @@ private slots:
 
     void on_noteList_itemDoubleClicked(QListWidgetItem *doubleClickedNoteListItem);
 
+    bool saveNoteList();
+
+
 private:
     Ui::MainWindow *ui;
 };
