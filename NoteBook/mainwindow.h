@@ -26,7 +26,7 @@ private slots:
 
     void on_noteList_itemClicked(QListWidgetItem *clickedNoteListItem);
 
-    void on_toolButton_3_clicked();
+    void on_saveNoteButton_clicked();
 
     void on_deleteNoteButton_clicked();
 

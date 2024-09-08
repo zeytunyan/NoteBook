@@ -164,7 +164,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton_3">
+   <widget class="QToolButton" name="saveNoteButton">
     <property name="geometry">
      <rect>
       <x>210</x>

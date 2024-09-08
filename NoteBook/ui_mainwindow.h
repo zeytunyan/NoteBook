@@ -29,7 +29,7 @@ public:
     QToolButton *deleteNoteButton;
     QListWidget *noteList;
     QTextEdit *noteTextEdit;
-    QToolButton *toolButton_3;
+    QToolButton *saveNoteButton;
     QLabel *noteListLabel;
     QLabel *selectedNoteLabel;
 
@@ -79,14 +79,14 @@ public:
         noteTextEdit = new QTextEdit(centralWidget);
         noteTextEdit->setObjectName(QString::fromUtf8("noteTextEdit"));
         noteTextEdit->setGeometry(QRect(210, 50, 271, 311));
-        toolButton_3 = new QToolButton(centralWidget);
-        toolButton_3->setObjectName(QString::fromUtf8("toolButton_3"));
-        toolButton_3->setGeometry(QRect(210, 370, 271, 41));
+        saveNoteButton = new QToolButton(centralWidget);
+        saveNoteButton->setObjectName(QString::fromUtf8("saveNoteButton"));
+        saveNoteButton->setGeometry(QRect(210, 370, 271, 41));
         QFont font1;
         font1.setPointSize(12);
         font1.setBold(true);
         font1.setWeight(75);
-        toolButton_3->setFont(font1);
+        saveNoteButton->setFont(font1);
         noteListLabel = new QLabel(centralWidget);
         noteListLabel->setObjectName(QString::fromUtf8("noteListLabel"));
         noteListLabel->setGeometry(QRect(20, 10, 141, 31));
@@ -107,7 +107,7 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "NoteBook", nullptr));
         addNoteButton->setText(QApplication::translate("MainWindow", "+", nullptr));
         deleteNoteButton->setText(QApplication::translate("MainWindow", "\303\227", nullptr));
-        toolButton_3->setText(QApplication::translate("MainWindow", "Save", nullptr));
+        saveNoteButton->setText(QApplication::translate("MainWindow", "Save", nullptr));
         noteListLabel->setText(QApplication::translate("MainWindow", "Notes:", nullptr));
         selectedNoteLabel->setText(QApplication::translate("MainWindow", "Selected note:", nullptr));
     } // retranslateUi

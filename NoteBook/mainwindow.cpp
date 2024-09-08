@@ -109,25 +109,27 @@ void MainWindow::on_deleteNoteButton_clicked()
 }
 
 
-void MainWindow::on_toolButton_3_clicked()
+void MainWindow::on_saveNoteButton_clicked()
 {
+    // Сохраняем текст заметки в соответствующий файл
     if (!QFile::exists("list.txt"))
         return;
 
-    QString nameInWgt = ui->selectedNoteLabel->text().trimmed() + ".txt";
+    QString saveNoteFileName = ui->selectedNoteLabel->text().trimmed() + ".txt";
 
-    if (nameInWgt == "Selected note:.txt")
+    if (saveNoteFileName == "Selected note:.txt")
         return;
 
-    QFile fileOut(nameInWgt);
+    QFile noteFile(saveNoteFileName);
 
-    if (!fileOut.open(QIODevice::WriteOnly | QIODevice::Text))
+    if (!noteFile.open(QIODevice::WriteOnly | QIODevice::Text))
         return;
 
-    QTextStream out(&fileOut);
-    out << ui->noteTextEdit->toPlainText();
+    QTextStream noteFileWriteStream(&noteFile);
+    
+    noteFileWriteStream << ui->noteTextEdit->toPlainText();
 
-    fileOut.close();
+    noteFile.close();
 }
 
 
