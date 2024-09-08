@@ -36,7 +36,9 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(500, 420);
+        MainWindow->resize(490, 420);
+        MainWindow->setMinimumSize(QSize(490, 420));
+        MainWindow->setMaximumSize(QSize(490, 420));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         toolButton = new QToolButton(centralWidget);
@@ -53,6 +55,8 @@ public:
         toolButton->setPalette(palette);
         QFont font;
         font.setPointSize(20);
+        font.setBold(true);
+        font.setWeight(75);
         toolButton->setFont(font);
         toolButton_2 = new QToolButton(centralWidget);
         toolButton_2->setObjectName(QString::fromUtf8("toolButton_2"));
@@ -76,6 +80,8 @@ public:
         toolButton_3->setGeometry(QRect(210, 370, 271, 41));
         QFont font1;
         font1.setPointSize(12);
+        font1.setBold(true);
+        font1.setWeight(75);
         toolButton_3->setFont(font1);
         label = new QLabel(centralWidget);
         label->setObjectName(QString::fromUtf8("label"));
@@ -84,9 +90,7 @@ public:
         label_2 = new QLabel(centralWidget);
         label_2->setObjectName(QString::fromUtf8("label_2"));
         label_2->setGeometry(QRect(220, 10, 261, 31));
-        QFont font2;
-        font2.setPointSize(10);
-        label_2->setFont(font2);
+        label_2->setFont(font1);
         MainWindow->setCentralWidget(centralWidget);
 
         retranslateUi(MainWindow);
