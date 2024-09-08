@@ -10,6 +10,7 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
@@ -39,6 +40,9 @@ public:
         MainWindow->resize(490, 420);
         MainWindow->setMinimumSize(QSize(490, 420));
         MainWindow->setMaximumSize(QSize(490, 420));
+        QIcon icon;
+        icon.addFile(QString::fromUtf8("../Resources/notebook.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        MainWindow->setWindowIcon(icon);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         addNoteButton = new QToolButton(centralWidget);

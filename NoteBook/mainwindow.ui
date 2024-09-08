@@ -25,6 +25,10 @@
   <property name="windowTitle">
    <string>NoteBook</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../Resources/notebook.ico</normaloff>../Resources/notebook.ico</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QToolButton" name="addNoteButton">
     <property name="geometry">

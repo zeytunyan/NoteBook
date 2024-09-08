@@ -42,6 +42,7 @@ void MainWindow::on_addNoteButton_clicked()
     ui->noteList->addItem(newNoteListItem);
     ui->noteList->editItem(newNoteListItem);
 
+
     QFile noteListFile("list.txt");
     
     if (!noteListFile.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -134,6 +135,7 @@ void MainWindow::on_noteList_itemChanged(QListWidgetItem *changedNoteListItem)
 
     ui->selectedNoteLabel->setText(changedNoteListItem->text());
 
+        
     QFile noteListFile("list.txt");
     
     if (!noteListFile.open(QIODevice::WriteOnly | QIODevice::Text))
