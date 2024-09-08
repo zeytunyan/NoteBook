@@ -26,7 +26,7 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     QToolButton *addNoteButton;
-    QToolButton *toolButton_2;
+    QToolButton *deleteNoteButton;
     QListWidget *noteList;
     QTextEdit *noteTextEdit;
     QToolButton *toolButton_3;
@@ -62,17 +62,17 @@ public:
         font.setBold(true);
         font.setWeight(75);
         addNoteButton->setFont(font);
-        toolButton_2 = new QToolButton(centralWidget);
-        toolButton_2->setObjectName(QString::fromUtf8("toolButton_2"));
-        toolButton_2->setGeometry(QRect(110, 370, 91, 41));
+        deleteNoteButton = new QToolButton(centralWidget);
+        deleteNoteButton->setObjectName(QString::fromUtf8("deleteNoteButton"));
+        deleteNoteButton->setGeometry(QRect(110, 370, 91, 41));
         QPalette palette1;
         QBrush brush2(QColor(255, 0, 0, 255));
         brush2.setStyle(Qt::SolidPattern);
         palette1.setBrush(QPalette::Active, QPalette::ButtonText, brush2);
         palette1.setBrush(QPalette::Inactive, QPalette::ButtonText, brush2);
         palette1.setBrush(QPalette::Disabled, QPalette::ButtonText, brush1);
-        toolButton_2->setPalette(palette1);
-        toolButton_2->setFont(font);
+        deleteNoteButton->setPalette(palette1);
+        deleteNoteButton->setFont(font);
         noteList = new QListWidget(centralWidget);
         noteList->setObjectName(QString::fromUtf8("noteList"));
         noteList->setGeometry(QRect(10, 50, 191, 311));
@@ -106,7 +106,7 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "NoteBook", nullptr));
         addNoteButton->setText(QApplication::translate("MainWindow", "+", nullptr));
-        toolButton_2->setText(QApplication::translate("MainWindow", "\303\227", nullptr));
+        deleteNoteButton->setText(QApplication::translate("MainWindow", "\303\227", nullptr));
         toolButton_3->setText(QApplication::translate("MainWindow", "Save", nullptr));
         noteListLabel->setText(QApplication::translate("MainWindow", "Notes:", nullptr));
         selectedNoteLabel->setText(QApplication::translate("MainWindow", "Selected note:", nullptr));

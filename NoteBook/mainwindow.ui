@@ -87,7 +87,7 @@
      <string>+</string>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton_2">
+   <widget class="QToolButton" name="deleteNoteButton">
     <property name="geometry">
      <rect>
       <x>110</x>

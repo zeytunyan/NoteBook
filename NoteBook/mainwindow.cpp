@@ -59,47 +59,55 @@ void MainWindow::on_addNoteButton_clicked()
     noteListFile.close();
 }
 
-void MainWindow::on_toolButton_2_clicked()
+
+void MainWindow::on_deleteNoteButton_clicked()
 {
+    // Удаляем соответствующие заметке элемент списка и файл, затем сохраняем списко в файле
     if (!QFile::exists("list.txt"))
         return;
 
-    QString nameInLbl = ui->selectedNoteLabel->text().trimmed();
-
-    if (nameInLbl == "Selected note:")
+    QString selectedNoteLabelText = "Selected note:";
+    QString deleteNoteName = ui->selectedNoteLabel->text().trimmed();
+    
+    if (deleteNoteName == selectedNoteLabelText)
         return;
 
-    if (QFile::exists(nameInLbl + ".txt"))
-    {
-        QFile(nameInLbl + ".txt").remove();
-    }
 
     ui->noteTextEdit->clear();
-    ui->selectedNoteLabel->setText("Selected note:");
+    ui->selectedNoteLabel->setText(selectedNoteLabelText);
 
     for (int i = 0; i < ui->noteList->count(); i++)
     {
-        QListWidgetItem* itm = ui->noteList->item(i);
+        QListWidgetItem* noteListItem = ui->noteList->item(i);
 
-        if (itm->text().trimmed() == nameInLbl)
-            delete itm;
+        if (noteListItem->text().trimmed() == deleteNoteName)
+            delete noteListItem;
     }
 
-    QFile fileO("list.txt");
+    QString deleteNoteFileName = deleteNoteName + ".txt";
 
-    if (fileO.open(QIODevice::WriteOnly | QIODevice::Text))
+    if (QFile::exists(deleteNoteFileName))
     {
-        QTextStream writeStream(&fileO);
-
-        for (int i = 0; i < ui->noteList->count(); i++)
-        {
-            QListWidgetItem* itm = ui->noteList->item(i);
-            writeStream << itm->text() << "\n";
-        }
-
-        fileO.close();
+        QFile(deleteNoteFileName).remove();
     }
+
+
+    QFile noteListFile("list.txt");
+
+    if (!noteListFile.open(QIODevice::WriteOnly | QIODevice::Text))
+        return;
+    
+    QTextStream noteListFileWriteStream(&noteListFile);
+
+    for (int i = 0; i < ui->noteList->count(); i++)
+    {
+        QListWidgetItem const* noteListItem = ui->noteList->item(i);
+        noteListFileWriteStream << noteListItem->text() << "\n";
+    }
+
+    noteListFile.close();
 }
+
 
 void MainWindow::on_toolButton_3_clicked()
 {
@@ -126,11 +134,11 @@ void MainWindow::on_toolButton_3_clicked()
 void MainWindow::on_noteList_itemChanged(QListWidgetItem *changedNoteListItem)
 {
     // Меняем название файла заметки и соответствующего пункта в списке, затем сохраняем список в файле
-    QString oldNoteName = ui->selectedNoteLabel->text().trimmed() + ".txt";
+    QString oldNoteFileName = ui->selectedNoteLabel->text().trimmed() + ".txt";
     
-    if (oldNoteName != "Selected note:.txt" && QFile::exists(oldNoteName))
+    if (oldNoteFileName != "Selected note:.txt" && QFile::exists(oldNoteFileName))
     {
-        QFile::rename(oldNoteName, changedNoteListItem->text().trimmed() + ".txt");  
+        QFile::rename(oldNoteFileName, changedNoteListItem->text().trimmed() + ".txt");  
     }
 
     ui->selectedNoteLabel->setText(changedNoteListItem->text());
