@@ -42,8 +42,8 @@ void MainWindow::on_addNoteButton_clicked()
     
     ui->noteList->addItem(newNoteListItem);
     ui->noteList->editItem(newNoteListItem);
-}
-
+    }
+        
 
 void MainWindow::on_deleteNoteButton_clicked()
 {
