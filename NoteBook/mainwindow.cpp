@@ -94,15 +94,17 @@ void MainWindow::on_saveNoteButton_clicked()
 
 void MainWindow::on_noteList_itemChanged(QListWidgetItem *changedNoteListItem)
 {
-    // Меняем название файла заметки и соответствующего пункта в списке, затем сохраняем список в файле
+    // Меняем название файла заметки и сохраняем список заметок
+    QString newNoteName = changedNoteListItem->text();
+    
     QString oldNoteFileName = ui->selectedNoteLabel->text().trimmed() + ".txt";
     
-    if (oldNoteFileName != "Selected note:.txt" && QFile::exists(oldNoteFileName))
+    if (QFile::exists(oldNoteFileName))
     {
-        QFile::rename(oldNoteFileName, changedNoteListItem->text().trimmed() + ".txt");  
+        QFile::rename(oldNoteFileName, newNoteName.trimmed() + ".txt");
     }
 
-    ui->selectedNoteLabel->setText(changedNoteListItem->text());
+    ui->selectedNoteLabel->setText(newNoteName);
 
     saveNoteList();
 }
