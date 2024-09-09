@@ -20,9 +20,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     
     noteListFile.close();
     
-    QStringList noteListNames = noteListString.split("\r\n");
+    QStringList noteListNames = noteListString.split("\r\n", QString::SkipEmptyParts);
     ui->noteList->addItems(noteListNames);
-    delete ui->noteList->item(ui->noteList->count() - 1);
 }
 
 MainWindow::~MainWindow()
@@ -86,7 +85,7 @@ void MainWindow::on_saveNoteButton_clicked()
 
     QTextStream noteFileWriteStream(&noteFile);
     noteFileWriteStream.setCodec("UTF-8");
-    
+
     noteFileWriteStream << ui->noteTextEdit->toPlainText();
 
     noteFile.close();
