@@ -34,6 +34,10 @@ private slots:
 
     bool saveNoteList();
 
+    void resetNoteView();
+
+    bool checkNoteSelection();
+
 
 private:
     Ui::MainWindow *ui;

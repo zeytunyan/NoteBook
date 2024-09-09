@@ -34,32 +34,25 @@ MainWindow::~MainWindow()
 void MainWindow::on_addNoteButton_clicked()
 {
     // Добавляем новый пункт-заметку в список и сразу активируем её редактирование
-    ui->noteTextEdit->clear();
-    ui->selectedNoteLabel->setText("Selected note:");
+    resetNoteView();
     
     auto *newNoteListItem = new QListWidgetItem();
     newNoteListItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsSelectable);
     
     ui->noteList->addItem(newNoteListItem);
     ui->noteList->editItem(newNoteListItem);
-    }
+}
         
 
 void MainWindow::on_deleteNoteButton_clicked()
 {
     // Удаляем соответствующий заметке элемент списка и файл, затем сохраняем список в файле
-    if (!QFile::exists("list.ntbk"))
+    if (!checkNoteSelection())
         return;
 
-    QString selectedNoteLabelText = "Selected note:";
     QString deleteNoteName = ui->selectedNoteLabel->text().trimmed();
-    
-    if (deleteNoteName == selectedNoteLabelText)
-        return;
 
-
-    ui->noteTextEdit->clear();
-    ui->selectedNoteLabel->setText(selectedNoteLabelText);
+    resetNoteView();
 
     for (int i = 0; i < ui->noteList->count(); i++)
     {
@@ -83,15 +76,10 @@ void MainWindow::on_deleteNoteButton_clicked()
 void MainWindow::on_saveNoteButton_clicked()
 {
     // Сохраняем текст заметки в соответствующий файл
-    if (!QFile::exists("list.ntbk"))
+    if (!checkNoteSelection())
         return;
 
-    QString saveNoteFileName = ui->selectedNoteLabel->text().trimmed() + ".txt";
-
-    if (saveNoteFileName == "Selected note:.txt")
-        return;
-
-    QFile noteFile(saveNoteFileName);
+    QFile noteFile(ui->selectedNoteLabel->text().trimmed() + ".txt");
 
     if (!noteFile.open(QIODevice::WriteOnly | QIODevice::Text))
         return;
@@ -168,4 +156,17 @@ bool MainWindow::saveNoteList()
     }
 
     noteListFile.close();
+    return true;
+}
+
+
+void MainWindow::resetNoteView() 
+{
+    ui->noteTextEdit->clear();
+    ui->selectedNoteLabel->setText("Selected note:");
+}
+
+bool MainWindow::checkNoteSelection()
+{
+    return QFile::exists("list.ntbk") && ui->selectedNoteLabel->text().trimmed() != "Selected note:";
 }
