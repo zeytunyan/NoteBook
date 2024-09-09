@@ -85,6 +85,7 @@ void MainWindow::on_saveNoteButton_clicked()
         return;
 
     QTextStream noteFileWriteStream(&noteFile);
+    noteFileWriteStream.setCodec("UTF-8");
     
     noteFileWriteStream << ui->noteTextEdit->toPlainText();
 
@@ -126,7 +127,8 @@ void MainWindow::on_noteList_itemClicked(QListWidgetItem *clickedNoteListItem)
     if (!noteFile.open(QIODevice::ReadOnly))
         return;
         
-    ui->noteTextEdit->setPlainText(QString::fromUtf8(noteFile.readAll()));
+    QString noteText = noteFile.readAll();
+    ui->noteTextEdit->setPlainText(noteText);
         
     noteFile.close();
 }
@@ -150,6 +152,7 @@ bool MainWindow::saveNoteList()
         return false;
 
     QTextStream noteListFileWriteStream(&noteListFile);
+    noteListFileWriteStream.setCodec("UTF-8");
 
     for (int i = 0; i < ui->noteList->count(); i++)
     {
