@@ -91,44 +91,6 @@ void MainWindow::on_saveNoteButton_clicked()
 }
 
 
-void MainWindow::on_noteList_itemChanged(QListWidgetItem *changedNoteListItem)
-{
-    // Меняем название файла заметки и сохраняем список заметок
-    QString oldNoteName = ui->selectedNoteLabel->text().trimmed();
-    QString newNoteName = changedNoteListItem->text().trimmed();
-
-    if (newNoteName == "Selected note:")
-    {
-        if (oldNoteName == "Selected note:")
-        {
-            delete changedNoteListItem;
-        }
-        else
-        {
-            changedNoteListItem->setText(oldNoteName);
-        }
-
-        return;
-    }
-
-    if (newNoteName == oldNoteName)
-    {
-        return;
-    }
-    
-    QString oldNoteFileName = oldNoteName + ".txt";
-    
-    if (QFile::exists(oldNoteFileName))
-    {
-        QFile::rename(oldNoteFileName, newNoteName + ".txt");
-    }
-
-    ui->selectedNoteLabel->setText(newNoteName);
-
-    saveNoteList();
-}
-
-
 void MainWindow::on_noteList_itemClicked(QListWidgetItem *clickedNoteListItem)
 {
     // Считываем содержимое файла заметки и помещаем этот текст в текстовое поле
@@ -160,6 +122,44 @@ void MainWindow::on_noteList_itemDoubleClicked(QListWidgetItem *doubleClickedNot
 
     doubleClickedNoteListItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsSelectable);
     ui->noteList->editItem(doubleClickedNoteListItem);
+}
+
+
+void MainWindow::on_noteList_itemChanged(QListWidgetItem* changedNoteListItem)
+{
+    // Меняем название файла заметки и сохраняем список заметок
+    QString oldNoteName = ui->selectedNoteLabel->text().trimmed();
+    QString newNoteName = changedNoteListItem->text().trimmed();
+
+    if (newNoteName == "Selected note:")
+    {
+        if (oldNoteName == "Selected note:")
+        {
+            delete changedNoteListItem;
+        }
+        else
+        {
+            changedNoteListItem->setText(oldNoteName);
+        }
+
+        return;
+    }
+
+    if (newNoteName == oldNoteName)
+    {
+        return;
+    }
+
+    QString oldNoteFileName = oldNoteName + ".txt";
+
+    if (QFile::exists(oldNoteFileName))
+    {
+        QFile::rename(oldNoteFileName, newNoteName + ".txt");
+    }
+
+    ui->selectedNoteLabel->setText(newNoteName);
+
+    saveNoteList();
 }
 
 
